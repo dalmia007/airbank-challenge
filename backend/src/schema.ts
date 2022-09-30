@@ -29,7 +29,6 @@ export const typeDefs = gql`
 		getAllAccounts: [Account]
 		getAllCategories: [Category]
 		getAllTransactions: [Transaction]
-		getAccountById(id: String!): Account
 		getTransactionById(id: String!): Transaction
 	}
 `;
@@ -41,6 +40,9 @@ export const resolvers = {
 				where: { id: args.id },
 				include: { account: true, category: true },
 			});
+		},
+		getAllCategories: (_parent: undefined, _args: undefined, context: Context) => {
+			return context.prisma.category.findMany();
 		},
 	},
 };

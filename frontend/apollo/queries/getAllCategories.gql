@@ -1,0 +1,7 @@
+query {
+  categories: getAllCategories {
+    id
+    name
+    color
+  }
+}

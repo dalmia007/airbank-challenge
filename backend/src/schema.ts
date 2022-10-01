@@ -28,7 +28,7 @@ export const typeDefs = gql`
 	type Query {
 		getTransactionById(id: String!): Transaction
 		getAllCategories: [Category]
-		getAllTransactions: [Transaction]
+		getTransactions(ascOrder: Boolean, skip: Int, take: Int): [Transaction]
 	}
 `;
 
@@ -43,8 +43,23 @@ export const resolvers = {
 		getAllCategories: (_parent: undefined, _args: undefined, context: Context) => {
 			return context.prisma.category.findMany();
 		},
-		getAllTransactions: (_parent: undefined, _args: undefined, context: Context) => {
-			return context.prisma.transaction.findMany();
+		getTransactions: (
+			_parent: undefined,
+			_args: {
+				ascOrder?: boolean;
+				skip?: number;
+				take?: number;
+			},
+			context: Context
+		) => {
+			const ascOrder = _args.ascOrder || false;
+			const skip = _args.skip || 0;
+			const take = _args.take || 25;
+			return context.prisma.transaction.findMany({
+				take,
+				skip,
+				orderBy: { date: ascOrder ? 'asc' : 'desc' },
+			});
 		},
 	},
 };

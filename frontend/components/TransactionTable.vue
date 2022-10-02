@@ -49,14 +49,20 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-gray-200 bg-white">
-                <tr v-for="transaction in transactions" :key="transaction.id">
+              <tbody class="divide-y divide-gray-300 bg-white">
+                <tr
+                  v-for="transaction in transactions"
+                  :key="transaction.id"
+                  role="button"
+                  @click="routeToDetails(transaction.id)"
+                >
                   <td
                     v-if="transaction.reference"
                     class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6"
                   >
                     {{ transaction.reference }}
                   </td>
+
                   <td
                     v-else
                     class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-light text-gray-400 sm:pl-6"
@@ -92,16 +98,16 @@
 </template>
 
 <script>
-// import CategoryTag from '~/components/CategoryTag'
+import CategoryTag from '~/components/CategoryTag'
+
 export default {
   name: 'TransactionTable',
   components: {
-    // CategoryTag,
+    CategoryTag,
   },
   props: {
     transactions: { type: Array, default: () => [] },
   },
-
   methods: {
     convertDate(time) {
       const date = new Date(parseInt(time))
@@ -109,6 +115,9 @@ export default {
       const month = date.getMonth() + 1
       const year = date.getFullYear()
       return day + '/' + month + '/' + year
+    },
+    routeToDetails(id) {
+      this.$router.push(`transactions/${id}`)
     },
   },
 }

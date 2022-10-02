@@ -1,6 +1,10 @@
 <template>
   <div>
-    <TransactionTable :transactions="transactions" />
+    <TransactionTable
+      :transactions="transactions"
+      :asc-order="Boolean(ascOrder)"
+      @changeSort="changeSort"
+    />
   </div>
 </template>
 
@@ -13,13 +17,23 @@ export default {
   components: {
     TransactionTable,
   },
+  data() {
+    return {
+      ascOrder: Boolean,
+    }
+  },
   apollo: {
     transactions: {
       query: getTransactions,
       variables() {
-        return { ascOrder: true, take: 200 }
+        return { ascOrder: this.ascOrder, take: 20 }
       },
       prefetch: true,
+    },
+  },
+  methods: {
+    changeSort() {
+      this.ascOrder = !this.ascOrder
     },
   },
 }

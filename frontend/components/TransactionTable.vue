@@ -30,16 +30,19 @@
                     scope="col"
                     class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                   >
-                    <a href="#" class="group inline-flex">
+                    <div class="group inline-flex">
                       Date
                       <span
-                        class="ml-2 flex-none rounded text-gray-400 group-hover:visible group-focus:visible"
+                        class="ml-2 cursor-pointer"
+                        @click="$emit('changeSort')"
                       >
                         <client-only>
-                          <unicon name="angle-up"></unicon>
+                          <unicon
+                            :name="ascOrder ? 'angle-up' : 'angle-down'"
+                          ></unicon>
                         </client-only>
                       </span>
-                    </a>
+                    </div>
                   </th>
                   <th
                     scope="col"
@@ -107,7 +110,9 @@ export default {
   },
   props: {
     transactions: { type: Array, default: () => [] },
+    ascOrder: Boolean,
   },
+  emits: ['changeSort'],
   methods: {
     convertDate(time) {
       const date = new Date(parseInt(time))

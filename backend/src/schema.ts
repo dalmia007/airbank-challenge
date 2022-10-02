@@ -59,6 +59,7 @@ export const resolvers = {
 				take,
 				skip,
 				orderBy: { date: ascOrder ? 'asc' : 'desc' },
+				include: { account: true, category: true },
 			});
 		},
 	},

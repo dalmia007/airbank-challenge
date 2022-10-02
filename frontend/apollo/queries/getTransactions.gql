@@ -5,5 +5,9 @@ query getTransactions($ascOrder: Boolean, $skip: Int, $take: Int) {
     amount
     currency
     date
+    category {
+      name
+      color
+    }
   }
 }

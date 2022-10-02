@@ -17,7 +17,7 @@ export default {
     transactions: {
       query: getTransactions,
       variables() {
-        return { ascOrder: true }
+        return { ascOrder: true, take: 200 }
       },
       prefetch: true,
     },

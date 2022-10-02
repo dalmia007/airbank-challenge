@@ -64,7 +64,11 @@
                     No Reference Provided
                   </td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                    TBC
+                    <CategoryTag
+                      v-if="transaction.category"
+                      :category="transaction.category"
+                    />
+                    <p v-else class="text-gray-300">No Category Assigned</p>
                   </td>
                   <td
                     class="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center"
@@ -88,11 +92,16 @@
 </template>
 
 <script>
+// import CategoryTag from '~/components/CategoryTag'
 export default {
   name: 'TransactionTable',
+  components: {
+    // CategoryTag,
+  },
   props: {
     transactions: { type: Array, default: () => [] },
   },
+
   methods: {
     convertDate(time) {
       const date = new Date(parseInt(time))

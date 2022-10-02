@@ -1,0 +1,9 @@
+query getTransactions($ascOrder: Boolean, $skip: Int, $take: Int) {
+  transactions: getTransactions(ascOrder: $ascOrder, skip: $skip, take: $take) {
+    id
+    reference
+    amount
+    currency
+    date
+  }
+}

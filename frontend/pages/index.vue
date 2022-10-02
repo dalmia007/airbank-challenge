@@ -1,19 +1,24 @@
 <template>
   <div>
-    <li v-for="category in categories" :key="category.id">
-      {{ category.name }}
-    </li>
+    <TransactionTable :transactions="transactions" />
   </div>
 </template>
 
 <script>
-import getAllCategories from '~/apollo/queries/getAllCategories'
+import getTransactions from '~/apollo/queries/getTransactions'
+import TransactionTable from '~/components/TransactionTable.vue'
 
 export default {
   name: 'IndexPage',
+  components: {
+    TransactionTable,
+  },
   apollo: {
-    categories: {
-      query: getAllCategories,
+    transactions: {
+      query: getTransactions,
+      variables() {
+        return { ascOrder: true }
+      },
       prefetch: true,
     },
   },

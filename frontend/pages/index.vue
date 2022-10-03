@@ -36,14 +36,16 @@
     <nav class="flex items-center justify-between bg-white py-3 px-6 lg:px-8">
       <div class="flex flex-1 justify-between items-center sm:justify-end">
         <button
-          class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          :disabled="currentPage == 0"
           @click="previousPage"
         >
           Previous
         </button>
         <p class="font-medium mx-auto">{{ currentPage }}</p>
         <button
-          class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed"
+          :disabled="transactions && transactions.length < transactionsPerPage"
           @click="nextPage"
         >
           Next

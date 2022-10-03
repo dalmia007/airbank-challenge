@@ -56,7 +56,7 @@ export const resolvers = {
 		) => {
 			const ascOrder = _args.ascOrder || false;
 			const skip = _args.skip || 0;
-			const take = _args.take || 25;
+			const take = _args.take || 20;
 			const selectedBank = _args.selectedBank || undefined;
 			return context.prisma.transaction.findMany({
 				take,

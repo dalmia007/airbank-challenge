@@ -28,8 +28,9 @@ export const typeDefs = gql`
 	type Query {
 		getTransactionById(id: String!): Transaction
 		getAllCategories: [Category]
-		getTransactions(ascOrder: Boolean, skip: Int, take: Int, selectedBank: String): [Transaction]
-		getAllBanks: [Account]
+		getTransactions(ascOrder: Boolean, skip: Int, take: Int, selectedBank: String, selectedAccount: String): [Transaction]
+		getAllUniqueBanks: [Account]
+		getAllUniqueAccounts: [Account]
 	}
 `;
 
@@ -51,6 +52,7 @@ export const resolvers = {
 				skip?: number;
 				take?: number;
 				selectedBank?: string;
+				selectedAccount?: string;
 			},
 			context: Context
 		) => {
@@ -58,19 +60,29 @@ export const resolvers = {
 			const skip = _args.skip || 0;
 			const take = _args.take || 20;
 			const selectedBank = _args.selectedBank || undefined;
+			const selectedAccount = _args.selectedAccount || undefined;
+
 			return context.prisma.transaction.findMany({
 				take,
 				skip,
 				orderBy: { date: ascOrder ? 'asc' : 'desc' },
 				include: { account: true, category: true },
-				where: { account: { bank: selectedBank } },
+				where: { account: { name: selectedAccount, bank: selectedBank } },
 			});
 		},
-		getAllBanks: (_parent: undefined, _args: undefined, context: Context) => {
+		getAllUniqueBanks: (_parent: undefined, _args: undefined, context: Context) => {
 			return context.prisma.account.findMany({
 				distinct: ['bank'],
 				select: {
 					bank: true,
+				},
+			});
+		},
+		getAllUniqueAccounts: (_parent: undefined, _args: undefined, context: Context) => {
+			return context.prisma.account.findMany({
+				distinct: ['name'],
+				select: {
+					name: true,
 				},
 			});
 		},

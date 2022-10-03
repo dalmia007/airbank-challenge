@@ -25,6 +25,25 @@
           </option>
         </select>
       </div>
+      <!-- Account Filter -->
+      <div class="flex flex-col items-center">
+        <label class="font-medium text-gray-500">Accounts</label>
+        <select
+          v-model="selectedAccount"
+          name="account"
+          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5"
+          @change="currentPage = 0"
+        >
+          <option :value="undefined">No Filter</option>
+          <option
+            v-for="account in accounts"
+            :key="account.name"
+            :value="account.name"
+          >
+            {{ account.name }}
+          </option>
+        </select>
+      </div>
     </div>
     <!-- Transaction Table -->
     <TransactionTable
@@ -58,7 +77,8 @@
 
 <script>
 import getTransactions from '~/apollo/queries/getTransactions'
-import getAllBanks from '~/apollo/queries/getAllBanks'
+import getAllUniqueBanks from '~/apollo/queries/getAllUniqueBanks'
+import getAllUniqueAccounts from '~/apollo/queries/getAllUniqueAccounts'
 import TransactionTable from '~/components/TransactionTable.vue'
 
 export default {
@@ -72,6 +92,7 @@ export default {
       currentPage: 0,
       ascOrder: Boolean || undefined,
       selectedBank: undefined,
+      selectedAccount: undefined,
     }
   },
   apollo: {
@@ -83,12 +104,17 @@ export default {
           take: this.transactionsPerPage,
           skip: this.skipCount,
           selectedBank: this.selectedBank,
+          selectedAccount: this.selectedAccount,
         }
       },
       prefetch: true,
     },
     banks: {
-      query: getAllBanks,
+      query: getAllUniqueBanks,
+      prefetch: true,
+    },
+    accounts: {
+      query: getAllUniqueAccounts,
       prefetch: true,
     },
   },

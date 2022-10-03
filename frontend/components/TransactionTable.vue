@@ -47,7 +47,10 @@
                   </th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-gray-300 bg-white">
+              <tbody
+                v-if="transactions.length > 0"
+                class="divide-y divide-gray-300 bg-white"
+              >
                 <tr
                   v-for="transaction in transactions"
                   :key="transaction.id"
@@ -86,6 +89,13 @@
                     }}</span>
                   </td>
                 </tr>
+              </tbody>
+              <tbody v-else>
+                <td colspan="4">
+                  <p class="text-center my-4 text-2xl text-gray-500">
+                    No Transactions
+                  </p>
+                </td>
               </tbody>
             </table>
           </div>

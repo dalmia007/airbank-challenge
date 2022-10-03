@@ -3,12 +3,14 @@ query getTransactions(
   $skip: Int
   $take: Int
   $selectedBank: String
+  $selectedAccount: String
 ) {
   transactions: getTransactions(
     ascOrder: $ascOrder
     skip: $skip
     take: $take
     selectedBank: $selectedBank
+    selectedAccount: $selectedAccount
   ) {
     id
     reference

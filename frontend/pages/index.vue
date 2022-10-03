@@ -2,6 +2,7 @@
   <div>
     <!-- Transaction Table -->
     <TransactionTable
+      class="mt-2"
       :transactions="transactions"
       :asc-order="Boolean(ascOrder)"
       @changeSort="changeSort"

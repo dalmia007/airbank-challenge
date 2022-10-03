@@ -78,6 +78,38 @@
               class="mt-1 text-sm text-gray-900 sm:col-span-2 sm:mt-0"
             >
               <CategoryTag :category="transaction.category" />
+              <button
+                type="button"
+                :class="showCategoryChange ? 'bg-red-600' : 'bg-black'"
+                class="mt-2 inline-flex items-center rounded-md border border-transparent px-4 py-2 text-sm font-light text-white shadow-sm"
+                @click="
+                  showCategoryChange
+                    ? (showCategoryChange = false)
+                    : (showCategoryChange = true)
+                "
+              >
+                {{ showCategoryChange ? 'Cancel' : 'Change Category' }}
+              </button>
+              <div
+                v-if="showCategoryChange"
+                class="flex flex-col mt-2 w-max-[300px]"
+              >
+                <select
+                  v-model="selectedCategory"
+                  name="category"
+                  class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm text-xs md:text-base"
+                  @change="updateCategory"
+                >
+                  <option :value="undefined">Select New Category</option>
+                  <option
+                    v-for="category in categories"
+                    :key="category.id"
+                    :value="category.id"
+                  >
+                    {{ category.name }}
+                  </option>
+                </select>
+              </div>
             </dd>
           </div>
         </dl>
@@ -88,6 +120,9 @@
 
 <script>
 import getTransactionById from '~/apollo/queries/getTransactionById'
+import getAllCategories from '~/apollo/queries/getAllCategories'
+import updateTransactionCategory from '~/apollo/mutations/updateTransactionCategory'
+
 import CategoryTag from '~/components/CategoryTag'
 
 export default {
@@ -98,6 +133,8 @@ export default {
   data() {
     return {
       transaction: {},
+      showCategoryChange: false,
+      selectedCategory: undefined,
     }
   },
   methods: {
@@ -108,6 +145,23 @@ export default {
       const year = date.getFullYear()
       return day + '/' + month + '/' + year
     },
+    updateCategory() {
+      this.$apollo
+        .mutate({
+          mutation: updateTransactionCategory,
+          variables: {
+            categoryId: this.selectedCategory,
+            transactionId: this.transaction.id,
+          },
+        })
+        .then(() => {
+          this.showCategoryChange = false
+          this.$apollo.queries.getTransactionById.refetch()
+        })
+        .finally(() => {
+          this.update = false
+        })
+    },
   },
   apollo: {
     transaction: {
@@ -115,6 +169,10 @@ export default {
       variables() {
         return { id: this.$route.params.id }
       },
+      prefetch: true,
+    },
+    categories: {
+      query: getAllCategories,
       prefetch: true,
     },
   },

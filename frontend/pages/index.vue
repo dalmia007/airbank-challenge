@@ -11,12 +11,12 @@
     <!-- Filters -->
     <div class="px-4 sm:px-6 lg:px-8 flex justify-end gap-2">
       <!-- Bank Filter -->
-      <div class="flex flex-col items-center">
-        <label class="font-medium text-gray-500">Banks</label>
+      <div class="flex flex-col">
+        <label class="block text-sm font-medium text-gray-700">Banks</label>
         <select
           v-model="selectedBank"
           name="bank"
-          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5 text-xs md:text-base"
+          class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm text-xs md:text-base"
           @change="currentPage = 0"
         >
           <option :value="undefined">No Filter</option>
@@ -26,12 +26,12 @@
         </select>
       </div>
       <!-- Account Filter -->
-      <div class="flex flex-col items-center">
-        <label class="font-medium text-gray-500">Accounts</label>
+      <div class="flex flex-col">
+        <label class="block text-sm font-medium text-gray-700">Accounts</label>
         <select
           v-model="selectedAccount"
           name="account"
-          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5 text-xs md:text-base"
+          class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm text-xs md:text-base"
           @change="currentPage = 0"
         >
           <option :value="undefined">No Filter</option>

@@ -30,10 +30,10 @@
                     scope="col"
                     class="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
                   >
-                    <div class="group inline-flex">
+                    <div class="group inline-flex items-center">
                       Date
                       <span
-                        class="ml-2 cursor-pointer"
+                        class="ml-1 mt-2 cursor-pointer"
                         @click="$emit('changeSort')"
                       >
                         <client-only>

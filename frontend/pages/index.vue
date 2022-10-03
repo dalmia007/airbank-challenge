@@ -16,7 +16,7 @@
         <select
           v-model="selectedBank"
           name="bank"
-          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5"
+          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5 text-xs md:text-base"
           @change="currentPage = 0"
         >
           <option :value="undefined">No Filter</option>
@@ -31,7 +31,7 @@
         <select
           v-model="selectedAccount"
           name="account"
-          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5"
+          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5 text-xs md:text-base"
           @change="currentPage = 0"
         >
           <option :value="undefined">No Filter</option>

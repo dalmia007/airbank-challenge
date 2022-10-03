@@ -8,7 +8,7 @@
     />
 
     <!-- Pagination Buttons -->
-    <nav class="flex items-center justify-between bg-white px-4 py-3 sm:px-6">
+    <nav class="flex items-center justify-between bg-white py-3 px-6 lg:px-8">
       <div class="flex flex-1 justify-between items-center sm:justify-end">
         <button
           class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"

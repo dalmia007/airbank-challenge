@@ -1,5 +1,13 @@
 <template>
   <div>
+    <!-- Heading -->
+    <div class="sm:flex sm:items-center">
+      <div class="sm:flex-auto">
+        <h1 class="text-xl text-center font-semibold text-gray-900">
+          Transactions
+        </h1>
+      </div>
+    </div>
     <!-- Transaction Table -->
     <TransactionTable
       class="mt-2"

@@ -1,10 +1,30 @@
 <template>
   <div>
+    <!-- Transaction Table -->
     <TransactionTable
       :transactions="transactions"
       :asc-order="Boolean(ascOrder)"
       @changeSort="changeSort"
     />
+
+    <!-- Pagination Buttons -->
+    <nav class="flex items-center justify-between bg-white px-4 py-3 sm:px-6">
+      <div class="flex flex-1 justify-between items-center sm:justify-end">
+        <button
+          class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          @click="previousPage"
+        >
+          Previous
+        </button>
+        <p class="font-medium mx-auto">{{ currentPage }}</p>
+        <button
+          class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+          @click="nextPage"
+        >
+          Next
+        </button>
+      </div>
+    </nav>
   </div>
 </template>
 
@@ -19,21 +39,41 @@ export default {
   },
   data() {
     return {
-      ascOrder: Boolean,
+      ascOrder: Boolean || undefined,
+      transactionsPerPage: 20,
+      currentPage: 0,
     }
   },
   apollo: {
     transactions: {
       query: getTransactions,
       variables() {
-        return { ascOrder: this.ascOrder, take: 20 }
+        return {
+          ascOrder: this.ascOrder,
+          take: this.transactionsPerPage,
+          skip: this.skipCount,
+        }
       },
       prefetch: true,
+    },
+  },
+  computed: {
+    skipCount() {
+      return this.transactionsPerPage * this.currentPage
     },
   },
   methods: {
     changeSort() {
       this.ascOrder = !this.ascOrder
+      this.currentPage = 0
+    },
+    nextPage() {
+      this.currentPage++
+    },
+    previousPage() {
+      if (this.currentPage > 0) {
+        this.currentPage--
+      }
     },
   },
 }

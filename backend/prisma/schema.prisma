@@ -16,7 +16,7 @@ model Account {
 
 model Category {
   id          String        @id @default(uuid())
-  name        String
+  name        String        @unique
   color       String?
   transaction Transaction[]
 }

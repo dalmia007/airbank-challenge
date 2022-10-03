@@ -8,6 +8,23 @@
         </h1>
       </div>
     </div>
+    <!-- Filters -->
+    <div class="px-4 sm:px-6 lg:px-8 flex justify-end gap-2">
+      <!-- Bank Filter -->
+      <div class="flex flex-col items-center">
+        <label class="font-medium text-gray-500">Banks</label>
+        <select
+          v-model="selectedBank"
+          name="bank"
+          class="border border-solid border-gray-300 rounded transition ease-in-out px-3 py-1.5"
+        >
+          <option :value="undefined">No Filter</option>
+          <option v-for="bank in banks" :key="bank.bank" :value="bank.bank">
+            {{ bank.bank }}
+          </option>
+        </select>
+      </div>
+    </div>
     <!-- Transaction Table -->
     <TransactionTable
       class="mt-2"
@@ -15,7 +32,6 @@
       :asc-order="Boolean(ascOrder)"
       @changeSort="changeSort"
     />
-
     <!-- Pagination Buttons -->
     <nav class="flex items-center justify-between bg-white py-3 px-6 lg:px-8">
       <div class="flex flex-1 justify-between items-center sm:justify-end">
@@ -39,6 +55,7 @@
 
 <script>
 import getTransactions from '~/apollo/queries/getTransactions'
+import getAllBanks from '~/apollo/queries/getAllBanks'
 import TransactionTable from '~/components/TransactionTable.vue'
 
 export default {
@@ -48,9 +65,10 @@ export default {
   },
   data() {
     return {
-      ascOrder: Boolean || undefined,
       transactionsPerPage: 20,
       currentPage: 0,
+      ascOrder: Boolean || undefined,
+      selectedBank: undefined,
     }
   },
   apollo: {
@@ -61,8 +79,13 @@ export default {
           ascOrder: this.ascOrder,
           take: this.transactionsPerPage,
           skip: this.skipCount,
+          selectedBank: this.selectedBank,
         }
       },
+      prefetch: true,
+    },
+    banks: {
+      query: getAllBanks,
       prefetch: true,
     },
   },

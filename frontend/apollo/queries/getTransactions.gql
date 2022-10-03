@@ -1,5 +1,15 @@
-query getTransactions($ascOrder: Boolean, $skip: Int, $take: Int) {
-  transactions: getTransactions(ascOrder: $ascOrder, skip: $skip, take: $take) {
+query getTransactions(
+  $ascOrder: Boolean
+  $skip: Int
+  $take: Int
+  $selectedBank: String
+) {
+  transactions: getTransactions(
+    ascOrder: $ascOrder
+    skip: $skip
+    take: $take
+    selectedBank: $selectedBank
+  ) {
     id
     reference
     amount

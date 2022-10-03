@@ -32,6 +32,9 @@ export const typeDefs = gql`
 		getAllUniqueBanks: [Account]
 		getAllUniqueAccounts: [Account]
 	}
+	type Mutation {
+		updateTransactionCategory(categoryId: String!, transactionId: String!): Transaction
+	}
 `;
 
 export const resolvers = {
@@ -83,6 +86,29 @@ export const resolvers = {
 				distinct: ['name'],
 				select: {
 					name: true,
+				},
+			});
+		},
+	},
+	Mutation: {
+		updateTransactionCategory: (
+			_parent: undefined,
+			_args: {
+				categoryId: string;
+				transactionId: string;
+			},
+			context: Context
+		) => {
+			return context.prisma.transaction.update({
+				where: {
+					id: _args.transactionId,
+				},
+				data: {
+					categoryId: _args.categoryId,
+				},
+				include: {
+					category: true,
+					account: true,
 				},
 			});
 		},

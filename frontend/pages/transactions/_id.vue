@@ -180,11 +180,10 @@ export default {
           },
         })
         .then(() => {
-          this.showCategoryChange = false
           this.$apollo.queries.getTransactionById.refetch()
         })
         .finally(() => {
-          this.update = false
+          this.showCategoryChange = false
         })
     },
     addCategory() {
@@ -197,13 +196,12 @@ export default {
           },
         })
         .then(() => {
-          this.showCategoryChange = false
-          this.createdCategory = ''
           this.$apollo.queries.getTransactionById.refetch()
           this.$apollo.queries.getAllCategories.refetch()
         })
         .finally(() => {
-          this.update = false
+          this.showCategoryChange = false
+          this.createdCategory = ''
         })
     },
   },

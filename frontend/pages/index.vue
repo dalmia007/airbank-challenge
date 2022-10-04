@@ -90,7 +90,7 @@ export default {
     return {
       transactionsPerPage: 20,
       currentPage: 0,
-      ascOrder: Boolean || undefined,
+      ascOrder: undefined,
       selectedBank: undefined,
       selectedAccount: undefined,
     }

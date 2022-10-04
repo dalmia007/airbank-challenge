@@ -49,7 +49,13 @@ export default {
       default: {
         httpEndpoint: 'http://localhost:4000',
       }
-    }
+    },
+    defaultOptions: {
+      $query: {
+        loadingKey: 'loading',
+        fetchPolicy: 'cache-and-network',
+      },
+    },
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios

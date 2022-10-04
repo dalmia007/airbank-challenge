@@ -162,6 +162,11 @@ export default {
       createdCategory: undefined,
     }
   },
+  head() {
+    return {
+      title: 'Transaction Details',
+    }
+  },
   methods: {
     convertDate(time) {
       const date = new Date(parseInt(time))

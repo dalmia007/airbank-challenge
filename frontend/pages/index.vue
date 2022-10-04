@@ -95,6 +95,11 @@ export default {
       selectedAccount: undefined,
     }
   },
+  head() {
+    return {
+      title: 'Transactions',
+    }
+  },
   apollo: {
     transactions: {
       query: getTransactions,
